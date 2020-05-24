@@ -8,12 +8,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
   </head>
   <body>
-    <header>
-      <h1><a href="{% url 'home' %}">Django Blog</a></h1>
-    </header>
     <div>
-      {% block content %}
-      {% endblock content %}
+      <header>
+          <h1><a href="{% url 'home' %}">Django Blog</a></h1>
+      </header>
+      {% if user.is_authenticated %}
+        <p>Hi {{ user.username }}! Welcome back!</p>
+        <a href="{% url 'logout' %}">Log out here</a>
+      {% else %}
+        <p>You are not logged in.</p>
+        <a href="{% url 'login' %}">Log in here</a>
+      {% endif %}
+          {% block content %}
+          {% endblock content %}
     </div>
   </body>
 </html>
